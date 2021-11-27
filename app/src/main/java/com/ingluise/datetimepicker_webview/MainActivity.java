@@ -13,6 +13,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
     private TextInputEditText ti1, ti2;
+    private String selectedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,19 @@ public class MainActivity extends AppCompatActivity {
         TimePickerFragment newFragment = TimePickerFragment.newInstance(new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
-                final String selectedTime = hour + ":" + minutes;
+                if (hour < 10) {
+                    selectedTime = "0" + hour + ":" + minutes;
+                    if (minutes < 10) {
+                        selectedTime = "0" + hour + ":" + "0" + minutes;
+                    }
+                }
+                else {
+                    selectedTime = hour + ":" + minutes;
+                    if (minutes < 10) {
+                        selectedTime = hour + ":" + "0" + minutes;
+                    }
+                }
+
                 ti2.setText(selectedTime);
             }
         });
